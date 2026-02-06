@@ -150,6 +150,13 @@ export default function CreatorPage() {
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
+
+                        // Check file size (e.g., 20MB limit for images)
+                        if (file.size > 20 * 1024 * 1024) {
+                          alert('Зургийн хэмжээ хэтэрхий том байна (Дээд тал нь 20MB)');
+                          return;
+                        }
+
                         setLoading(true);
 
                         const formDataUpload = new FormData();
@@ -183,6 +190,13 @@ export default function CreatorPage() {
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
+
+                        // Check file size (e.g., 45MB limit for songs to stay under 50MB)
+                        if (file.size > 45 * 1024 * 1024) {
+                          alert('Дууны хэмжээ хэтэрхий том байна (Дээд тал нь 45MB)');
+                          return;
+                        }
+
                         setLoading(true);
 
                         const formDataUpload = new FormData();

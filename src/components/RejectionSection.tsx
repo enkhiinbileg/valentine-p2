@@ -37,7 +37,7 @@ export default function RejectionSection({ onRetry }: RejectionSectionProps) {
                 className="mb-12 z-10"
             >
                 <Image
-                    src="/Tkthao219 Tooji Sticker - Tkthao219 Tooji Peach - Discover & Share GIFs.gif"
+                    src="/sad-peach.gif"
                     alt="Sad Heart Character"
                     width={320}
                     height={320}

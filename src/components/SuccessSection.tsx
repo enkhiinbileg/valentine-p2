@@ -16,7 +16,7 @@ function HappyHeart() {
     return (
         <div className="relative">
             <Image
-                src="/download (1).gif"
+                src="/gift-bunny.gif"
                 alt="Gift Bunny"
                 width={250}
                 height={250}
@@ -32,7 +32,7 @@ function HeartFirework() {
     return (
         <div className="relative">
             <Image
-                src="/Post by @lovelysticker · 8 images.gif"
+                src="/heart-decoration.gif"
                 alt="Heart Decoration"
                 width={350}
                 height={350}
@@ -48,7 +48,7 @@ function Mailbox() {
     return (
         <div className="relative">
             <Image
-                src="/download (3).gif"
+                src="/mailbox.gif"
                 alt="Right Decoration"
                 width={350}
                 height={350}

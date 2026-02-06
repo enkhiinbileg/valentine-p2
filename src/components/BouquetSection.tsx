@@ -106,7 +106,7 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                     <ScallopedFrame>
                         <div className="relative w-80 h-[340px]">
                             <Image
-                                src="/pngtree-luxurious-red-rose-bouquet-tied-with-satin-ribbon-png-image_20326684.png"
+                                src="/bouquet.png"
                                 alt="Сарнайн баглаа"
                                 fill
                                 style={{ objectFit: 'contain' }}

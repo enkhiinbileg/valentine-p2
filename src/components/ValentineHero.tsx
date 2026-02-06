@@ -14,7 +14,7 @@ function PandaCouple() {
     return (
         <div className="relative transform hover:scale-105 transition-transform duration-300">
             <Image
-                src="/Panda_Bear_Bubu_And_Dudu_Couple_Sticker-removebg-preview.png"
+                src="/panda-couple.png"
                 alt="Панда хос"
                 width={400}
                 height={350}
@@ -30,7 +30,7 @@ function Calendar() {
     return (
         <div className="relative rotate-[8deg] drop-shadow-xl">
             <Image
-                src="/calendar_app_icon-removebg-preview.png"
+                src="/calendar.png"
                 alt="Календарь"
                 width={200}
                 height={200}
@@ -72,7 +72,7 @@ function PaperAirplaneWithTrail() {
                 <foreignObject x="110" y="70" width="120" height="120">
                     <div className="rotate-[15deg] drop-shadow-md">
                         <Image
-                            src="/Download_Pixel_Heart__Heart__Pixel__Royalty-Free_Stock_Illustration_Image-removebg-preview.png"
+                            src="/pixel-heart.png"
                             alt="Пиксель зүрх"
                             width={110}
                             height={110}

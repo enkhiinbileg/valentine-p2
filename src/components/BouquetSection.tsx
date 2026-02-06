@@ -112,6 +112,7 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                                 style={{ objectFit: 'contain' }}
                                 className="drop-shadow-2xl"
                                 priority
+                                unoptimized
                             />
                         </div>
                     </ScallopedFrame>

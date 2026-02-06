@@ -20,6 +20,7 @@ function PandaCouple() {
                 height={350}
                 className="drop-shadow-2xl"
                 priority
+                unoptimized
             />
         </div>
     );
@@ -35,6 +36,7 @@ function Calendar() {
                 width={200}
                 height={200}
                 className="drop-shadow-lg"
+                unoptimized
             />
         </div>
     );
@@ -76,6 +78,7 @@ function PaperAirplaneWithTrail() {
                             alt="Пиксель зүрх"
                             width={110}
                             height={110}
+                            unoptimized
                         />
                     </div>
                 </foreignObject>
@@ -94,6 +97,7 @@ function ChocolateBox() {
                 width={180}
                 height={180}
                 className="drop-shadow-xl"
+                unoptimized
             />
         </div>
     );

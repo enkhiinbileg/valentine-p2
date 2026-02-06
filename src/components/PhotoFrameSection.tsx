@@ -83,7 +83,7 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                     }}>
                         <div className="bg-sky-400 w-72 h-80 md:w-80 md:h-[400px] relative flex items-center justify-center overflow-hidden">
                             {photoUrl ? (
-                                <Image src={photoUrl} alt="Valentine Photo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <Image src={photoUrl} alt="Valentine Photo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" unoptimized />
                             ) : (
                                 <>
                                     {/* Inner Nature Scene (Background of the photo) */}

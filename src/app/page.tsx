@@ -1,66 +1,302 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '@/lib/supabase';
+import { nanoid } from 'nanoid';
+import Image from 'next/image';
+import { uploadToR2 } from '@/app/actions/storage';
+import HeartQRCode from '@/components/HeartQRCode';
 
-export default function Home() {
+export default function CreatorPage() {
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    creator_name: '',
+    partner_name: '',
+    letter_content: '',
+    reasons: ['', '', ''],
+    about_us: ['', '', ''],
+    photo_url: '',
+    song_url: '',
+    theme_color: '#FFC5DE'
+  });
+  const [createdSlug, setCreatedSlug] = useState('');
+
+  const handleCreate = async () => {
+    setLoading(true);
+    const slug = nanoid(10);
+
+    const { error } = await supabase
+      .from('valentine_cards')
+      .insert([
+        {
+          ...formData,
+          slug,
+          reasons: formData.reasons.filter(r => r !== ''),
+          about_us: formData.about_us.filter(r => r !== '')
+        }
+      ]);
+
+    if (error) {
+      alert('Алдаа гарлаа: ' + error.message);
+    } else {
+      setCreatedSlug(slug);
+      setStep(4);
+    }
+    setLoading(false);
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#FFC5DE] font-fredoka flex flex-col items-center justify-center p-6 text-[#5D4037]">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-xl bg-white/80 backdrop-blur-md rounded-[40px] p-8 md:p-12 shadow-2xl border-4 border-white"
+      >
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-[#D32F2F] mb-2 font-heading">Валентин Карт Бүтээх</h1>
+          <p className="text-lg opacity-80">Хайртай хүндээ зориулж өөрийн гэсэн вэб хуудас нээгээрэй ❤️</p>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <AnimatePresence mode="wait">
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <div>
+                <label className="block text-xl font-bold mb-2">Таны нэр:</label>
+                <input
+                  type="text"
+                  value={formData.creator_name}
+                  onChange={(e) => setFormData({ ...formData, creator_name: e.target.value })}
+                  className="w-full p-4 rounded-2xl border-2 border-pink-200 focus:border-pink-500 outline-none transition-colors"
+                  placeholder="Жишээ: Ану"
+                />
+              </div>
+              <div>
+                <label className="block text-xl font-bold mb-2">Хайртай хүний тань нэр:</label>
+                <input
+                  type="text"
+                  value={formData.partner_name}
+                  onChange={(e) => setFormData({ ...formData, partner_name: e.target.value })}
+                  className="w-full p-4 rounded-2xl border-2 border-pink-200 focus:border-pink-500 outline-none transition-colors"
+                  placeholder="Жишээ: Тэмүүжин"
+                />
+              </div>
+              <button
+                onClick={() => setStep(2)}
+                className="w-full py-4 bg-[#F4978E] text-white rounded-2xl text-2xl font-bold shadow-lg hover:bg-[#eb8a81] transition-colors"
+              >
+                Дараах 🎀
+              </button>
+            </motion.div>
+          )}
+
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <div>
+                <label className="block text-xl font-bold mb-2">Хайрын захидал:</label>
+                <textarea
+                  value={formData.letter_content}
+                  onChange={(e) => setFormData({ ...formData, letter_content: e.target.value })}
+                  className="w-full p-4 rounded-2xl border-2 border-pink-200 focus:border-pink-500 outline-none h-40 resize-none transition-colors"
+                  placeholder="Чамдаа хэлэхийг хүссэн үгс..."
+                />
+              </div>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setStep(1)}
+                  className="flex-1 py-4 bg-gray-200 rounded-2xl text-xl font-bold"
+                >
+                  Буцах
+                </button>
+                <button
+                  onClick={() => setStep(3)}
+                  className="flex-[2] py-4 bg-[#F4978E] text-white rounded-2xl text-2xl font-bold shadow-lg"
+                >
+                  Тал бүр... ✨
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <div className="space-y-4">
+                <label className="block text-xl font-bold mb-2">Зураг ба Дуу (Заавал биш):</label>
+
+                <div className="space-y-4">
+                  <div className="p-4 border-2 border-dashed border-pink-200 rounded-2xl bg-pink-50/50">
+                    <label className="block text-sm font-bold text-pink-600 mb-2">📸 Хамтдаа авахуулсан зураг:</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setLoading(true);
+
+                        const formDataUpload = new FormData();
+                        formDataUpload.append('file', file);
+                        formDataUpload.append('folder', 'photos');
+
+                        try {
+                          const result = await uploadToR2(formDataUpload);
+
+                          if (!result.success || !result.url) {
+                            alert('Зураг хуулахад алдаа гарлаа: ' + result.error);
+                          } else {
+                            setFormData({ ...formData, photo_url: result.url });
+                          }
+                        } catch (fetchError: any) {
+                          console.error('Upload fetch error:', fetchError);
+                          alert('Сүлжээний алдаа (Fetch failed). Серверээ дахин ажиллуулаад үзнэ үү.');
+                        }
+                        setLoading(false);
+                      }}
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-100 file:text-pink-700 hover:file:bg-pink-200"
+                    />
+                    {formData.photo_url && <p className="mt-2 text-xs text-green-600 font-bold">✓ Зураг амжилттай хуулагдлаа</p>}
+                  </div>
+
+                  <div className="p-4 border-2 border-dashed border-pink-200 rounded-2xl bg-pink-50/50">
+                    <label className="block text-sm font-bold text-pink-600 mb-2">🎵 Та хоёрын дуртай дуу (mp3):</label>
+                    <input
+                      type="file"
+                      accept="audio/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        setLoading(true);
+
+                        const formDataUpload = new FormData();
+                        formDataUpload.append('file', file);
+                        formDataUpload.append('folder', 'songs');
+
+                        try {
+                          const result = await uploadToR2(formDataUpload);
+
+                          if (!result.success || !result.url) {
+                            alert('Дуу хуулахад алдаа гарлаа: ' + result.error);
+                          } else {
+                            setFormData({ ...formData, song_url: result.url });
+                          }
+                        } catch (fetchError: any) {
+                          console.error('Song upload fetch error:', fetchError);
+                          alert('Сүлжээний алдаа (Fetch failed). Серверээ дахин ажиллуулаад үзнэ үү.');
+                        }
+                        setLoading(false);
+                      }}
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-100 file:text-pink-700 hover:file:bg-pink-200"
+                    />
+                    {formData.song_url && <p className="mt-2 text-xs text-green-600 font-bold">✓ Дуу амжилттай хуулагдлаа</p>}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <label className="block text-lg font-bold text-pink-600">✨ Хайртай байх 3 шалтгаан:</label>
+                    {formData.reasons.map((reason, i) => (
+                      <input
+                        key={`reason-${i}`}
+                        type="text"
+                        value={reason}
+                        onChange={(e) => {
+                          const newReasons = [...formData.reasons];
+                          newReasons[i] = e.target.value;
+                          setFormData({ ...formData, reasons: newReasons });
+                        }}
+                        className="w-full p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-sm"
+                        placeholder={`Шалтгаан ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="space-y-4">
+                    <label className="block text-lg font-bold text-pink-600">📖 Бидний тухай 3 зүйл:</label>
+                    {formData.about_us.map((about, i) => (
+                      <input
+                        key={`about-${i}`}
+                        type="text"
+                        value={about}
+                        onChange={(e) => {
+                          const newAbout = [...formData.about_us];
+                          newAbout[i] = e.target.value;
+                          setFormData({ ...formData, about_us: newAbout });
+                        }}
+                        className="w-full p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-sm"
+                        placeholder={`Таалагддаг зүйл ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setStep(2)}
+                  className="flex-1 py-4 bg-gray-200 rounded-2xl text-xl font-bold"
+                >
+                  Буцах
+                </button>
+                <button
+                  disabled={loading}
+                  onClick={handleCreate}
+                  className="flex-[2] py-4 bg-[#D32F2F] text-white rounded-2xl text-2xl font-bold shadow-lg"
+                >
+                  {loading ? 'Уншиж байна...' : 'Хуудсыг Бүтээх ❤️'}
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 4 && (
+            <motion.div
+              key="step4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-center space-y-6 flex flex-col items-center"
+            >
+              <div className="text-6xl mb-2">🎉</div>
+              <h2 className="text-3xl font-bold text-[#D32F2F]">Амжилттай бүтээгдлээ!</h2>
+
+              <div className="my-4">
+                <HeartQRCode url={`${typeof window !== 'undefined' ? window.location.origin : ''}/${createdSlug}`} />
+              </div>
+
+              <div className="w-full space-y-4">
+                <p className="text-lg">Таны валентин хуудас бэлэн боллоо. Энэ линкийг хайртай хүндээ явуулаарай эсвэл QR кодыг уншуулаарай:</p>
+
+                <div className="p-4 bg-pink-50 rounded-2xl border-2 border-dashed border-pink-300 break-all font-mono text-pink-600">
+                  {typeof window !== 'undefined' ? window.location.origin : ''}/{createdSlug}
+                </div>
+
+                <button
+                  onClick={() => window.open(`/${createdSlug}`, '_blank')}
+                  className="w-full py-4 bg-[#F4978E] text-white rounded-2xl text-2xl font-bold shadow-lg"
+                >
+                  Хуудсыг үзэх 👀
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

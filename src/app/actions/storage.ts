@@ -28,10 +28,11 @@ export async function uploadToR2(formData: FormData) {
         const fileExt = file.name.split('.').pop() || 'bin';
         const fileName = `${folder}/${crypto.randomUUID()}.${fileExt}`;
 
-        console.log(`S3 PutObjectCommand for: ${fileName}, Bucket: ${process.env.R2_BUCKET_NAME}`);
+        const bucketName = process.env.R2_BUCKET_NAME?.trim();
+        console.log(`S3 PutObjectCommand for: ${fileName}, Bucket: ${bucketName}`);
 
         const command = new PutObjectCommand({
-            Bucket: process.env.R2_BUCKET_NAME,
+            Bucket: bucketName,
             Key: fileName,
             Body: buffer,
             ContentType: file.type || 'application/octet-stream',
@@ -40,7 +41,7 @@ export async function uploadToR2(formData: FormData) {
         await r2.send(command);
         console.log('R2 Send successful');
 
-        const publicUrl = `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${fileName}`;
+        const publicUrl = `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.trim()}/${fileName}`;
         return { success: true, url: publicUrl, name: fileName, error: null };
     } catch (error: any) {
         console.error('SERVER ACTION ERROR:', error);

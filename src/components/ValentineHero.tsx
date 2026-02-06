@@ -89,7 +89,7 @@ function ChocolateBox() {
     return (
         <div className="relative drop-shadow-2xl rotate-[-5deg] hover:rotate-[0deg] transition-all duration-300">
             <Image
-                src="/Download_Pixel_Heart__Heart__Pixel__Royalty-Free_Stock_Illustration_Image-removebg-preview.png"
+                src="/pixel-heart.png"
                 alt="Пиксель зүрх"
                 width={180}
                 height={180}

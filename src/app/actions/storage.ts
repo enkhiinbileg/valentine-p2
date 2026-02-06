@@ -42,9 +42,15 @@ export async function uploadToR2(formData: FormData) {
         console.log('R2 Send successful');
 
         const publicUrl = `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.trim()}/${fileName}`;
+        console.log('File upload result:', { success: true, url: publicUrl });
         return { success: true, url: publicUrl, name: fileName, error: null };
     } catch (error: any) {
-        console.error('SERVER ACTION ERROR:', error);
+        console.error('SERVER ACTION ERROR:', {
+            message: error.message,
+            code: error.code,
+            name: error.name,
+            requestId: error.$metadata?.requestId
+        });
         return { success: false, error: error.message || 'Файл хуулж чадсангүй (Сервер талын алдаа)', url: '', name: '' };
     }
 }

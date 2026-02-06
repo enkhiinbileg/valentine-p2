@@ -4,10 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
-import { uploadToR2 } from '@/app/actions/storage';
+import { getPresignedUrl } from '@/app/actions/storage';
 import HeartQRCode from '@/components/HeartQRCode';
 
 export default function CreatorPage() {
+  // ... existing states ...
+  // (I will use multi_replace if needed, but for now I'll just fix the handlers)
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -151,7 +153,7 @@ export default function CreatorPage() {
                         const file = e.target.files?.[0];
                         if (!file) return;
 
-                        // Check file size (e.g., 20MB limit for images)
+                        // Max 20MB for images
                         if (file.size > 20 * 1024 * 1024) {
                           alert('Зургийн хэмжээ хэтэрхий том байна (Дээд тал нь 20MB)');
                           return;
@@ -159,21 +161,35 @@ export default function CreatorPage() {
 
                         setLoading(true);
 
-                        const formDataUpload = new FormData();
-                        formDataUpload.append('file', file);
-                        formDataUpload.append('folder', 'photos');
-
                         try {
-                          const result = await uploadToR2(formDataUpload);
+                          // 1. Get presigned URL
+                          const result = await getPresignedUrl(file.name, file.type, 'photos');
 
                           if (!result.success || !result.url) {
-                            alert('Зураг хуулахад алдаа гарлаа: ' + result.error);
+                            alert('Хуулах эрх авч чадсангүй: ' + result.error);
+                            setLoading(false);
+                            return;
+                          }
+
+                          // 2. Upload directly to R2
+                          const uploadResponse = await fetch(result.url, {
+                            method: 'PUT',
+                            body: file,
+                            headers: {
+                              'Content-Type': file.type,
+                            },
+                          });
+
+                          if (uploadResponse.ok) {
+                            setFormData({ ...formData, photo_url: result.publicUrl });
                           } else {
-                            setFormData({ ...formData, photo_url: result.url });
+                            const errorText = await uploadResponse.text();
+                            console.error('R2 Direct Upload Error:', errorText);
+                            alert('Зураг хуулахад алдаа гарлаа (S3 PUT failed)');
                           }
                         } catch (fetchError: any) {
-                          console.error('Upload fetch error:', fetchError);
-                          alert('Сүлжээний алдаа (Fetch failed). Серверээ дахин ажиллуулаад үзнэ үү.');
+                          console.error('Upload flow error:', fetchError);
+                          alert('Сүлжээний алдаа гарлаа. Дахин оролдоно уу.');
                         }
                         setLoading(false);
                       }}
@@ -191,29 +207,43 @@ export default function CreatorPage() {
                         const file = e.target.files?.[0];
                         if (!file) return;
 
-                        // Check file size (e.g., 45MB limit for songs to stay under 50MB)
-                        if (file.size > 45 * 1024 * 1024) {
-                          alert('Дууны хэмжээ хэтэрхий том байна (Дээд тал нь 45MB)');
+                        // Max 100MB for songs (R2 limit is higher, but 100MB is safe for most explorers)
+                        if (file.size > 100 * 1024 * 1024) {
+                          alert('Дууны хэмжээ хэтэрхий том байна (Дээд тал нь 100MB)');
                           return;
                         }
 
                         setLoading(true);
 
-                        const formDataUpload = new FormData();
-                        formDataUpload.append('file', file);
-                        formDataUpload.append('folder', 'songs');
-
                         try {
-                          const result = await uploadToR2(formDataUpload);
+                          // 1. Get presigned URL
+                          const result = await getPresignedUrl(file.name, file.type, 'songs');
 
                           if (!result.success || !result.url) {
-                            alert('Дуу хуулахад алдаа гарлаа: ' + result.error);
+                            alert('Хуулах эрх авч чадсангүй: ' + result.error);
+                            setLoading(false);
+                            return;
+                          }
+
+                          // 2. Upload directly to R2
+                          const uploadResponse = await fetch(result.url, {
+                            method: 'PUT',
+                            body: file,
+                            headers: {
+                              'Content-Type': file.type,
+                            },
+                          });
+
+                          if (uploadResponse.ok) {
+                            setFormData({ ...formData, song_url: result.publicUrl });
                           } else {
-                            setFormData({ ...formData, song_url: result.url });
+                            const errorText = await uploadResponse.text();
+                            console.error('R2 Audio Direct Upload Error:', errorText);
+                            alert('Дуу хуулахад алдаа гарлаа (S3 PUT failed)');
                           }
                         } catch (fetchError: any) {
-                          console.error('Song upload fetch error:', fetchError);
-                          alert('Сүлжээний алдаа (Fetch failed). Серверээ дахин ажиллуулаад үзнэ үү.');
+                          console.error('Song upload flow error:', fetchError);
+                          alert('Сүлжээний алдаа гарлаа. Дахин оролдоно уу.');
                         }
                         setLoading(false);
                       }}

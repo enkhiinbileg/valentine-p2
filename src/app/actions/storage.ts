@@ -2,49 +2,46 @@
 
 import { r2 } from "@/lib/r2";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-export async function uploadToR2(formData: FormData) {
-    console.log('--- uploadToR2 attempt started ---');
-
+/**
+ * Generates a presigned URL for direct upload from the browser to R2.
+ * This bypasses Vercel's 4.5MB Server Action payload limit.
+ */
+export async function getPresignedUrl(fileName: string, contentType: string, folder: string = 'misc') {
+    console.log('--- getPresignedUrl started ---');
     try {
         if (!r2) {
             console.error('CRITICAL: R2 Client is null');
-            return { success: false, error: 'Storage client not initialized', url: '', name: '' };
+            return { success: false, error: 'Storage client not initialized', url: '', publicUrl: '' };
         }
-
-        const file = formData.get('file') as File;
-        const folder = formData.get('folder') as string || 'misc';
-
-        if (!file || !(file instanceof File)) {
-            console.error('File not received or invalid format');
-            return { success: false, error: 'Файл олдсонгүй эсвэл буруу форматтай байна', url: '', name: '' };
-        }
-
-        console.log(`Processing file: ${file.name} (${file.size} bytes) in folder: ${folder}`);
-
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const fileExt = file.name.split('.').pop() || 'bin';
-        const fileName = `${folder}/${crypto.randomUUID()}.${fileExt}`;
 
         const bucketName = process.env.R2_BUCKET_NAME?.trim();
-        console.log(`S3 PutObjectCommand for: ${fileName}, Bucket: ${bucketName}`);
+        const fileExt = fileName.split('.').pop() || 'bin';
+        const uniqueFileName = `${folder}/${crypto.randomUUID()}.${fileExt}`;
+
+        console.log(`Generating presigned URL for: ${uniqueFileName}, Type: ${contentType}`);
 
         const command = new PutObjectCommand({
             Bucket: bucketName,
-            Key: fileName,
-            Body: buffer,
-            ContentType: file.type || 'application/octet-stream',
+            Key: uniqueFileName,
+            ContentType: contentType,
         });
 
-        await r2.send(command);
-        console.log('R2 Send successful');
+        // URL expires in 3600 seconds (1 hour)
+        const presignedUrl = await getSignedUrl(r2, command, { expiresIn: 3600 });
+        const publicUrl = `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.trim()}/${uniqueFileName}`;
 
-        const publicUrl = `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.trim()}/${fileName}`;
-        return { success: true, url: publicUrl, name: fileName, error: null };
+        console.log('Presigned URL generated successfully');
+
+        return {
+            success: true,
+            url: presignedUrl,
+            publicUrl,
+            error: null
+        };
     } catch (error: any) {
-        console.error('SERVER ACTION ERROR:', error);
-        return { success: false, error: error.message || 'Файл хуулж чадсангүй (Сервер талын алдаа)', url: '', name: '' };
+        console.error('PRESIGNED URL ERROR:', error);
+        return { success: false, error: error.message || 'Presigned URL үүсгэж чадсангүй', url: '', publicUrl: '' };
     }
 }

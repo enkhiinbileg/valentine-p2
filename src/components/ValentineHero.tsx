@@ -18,7 +18,7 @@ function PandaCouple() {
                 alt="Панда хос"
                 width={400}
                 height={350}
-                className="drop-shadow-2xl"
+                className="drop-shadow-2xl w-[280px] md:w-[400px]"
                 priority
                 unoptimized
             />
@@ -35,7 +35,7 @@ function Calendar() {
                 alt="Календарь"
                 width={200}
                 height={200}
-                className="drop-shadow-lg"
+                className="drop-shadow-lg w-[100px] md:w-[200px]"
                 unoptimized
             />
         </div>
@@ -45,7 +45,7 @@ function Calendar() {
 // Paper Airplane with Heart-Shaped Dotted Trail - Enlarged
 function PaperAirplaneWithTrail() {
     return (
-        <div className="relative">
+        <div className="relative scale-50 md:scale-100 origin-bottom-left">
             <motion.div
                 className="absolute z-20"
                 initial={{ x: 0, y: 0 }}
@@ -96,7 +96,7 @@ function ChocolateBox() {
                 alt="Пиксель зүрх"
                 width={180}
                 height={180}
-                className="drop-shadow-xl"
+                className="drop-shadow-xl w-[100px] md:w-[180px]"
                 unoptimized
             />
         </div>
@@ -107,27 +107,36 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
     return (
         <div className="min-h-screen flex flex-col items-center justify-center text-center p-6 relative overflow-hidden bg-[#FFC5DE] font-fredoka">
 
-            {/* Hanging Heart Strings - 3 total on the left side - Enlarged */}
-            <div className="absolute top-0 left-12 flex gap-12 pointer-events-none p-4">
+            {/* Hanging Heart Strings - Reduced for mobile */}
+            <div className="absolute top-0 left-4 md:left-12 flex gap-4 md:gap-12 pointer-events-none p-4">
                 {[
                     [80, 180, 280, 400],
                     [60, 160, 320],
                     [100, 220, 340]
-                ].map((lengths, colIdx) => (
+                ].slice(0, 2).map((lengths, colIdx) => ( // Show only 2 columns on mobile/small screens
                     <div key={colIdx} className="flex flex-col items-center">
                         <div className="w-1 bg-[#D32F2F] h-6"></div>
                         {lengths.map((len, heartIdx) => (
                             <div key={heartIdx} className="flex flex-col items-center">
-                                <span className="text-4xl filter drop-shadow-md">❤️</span>
-                                <div className="w-1 bg-[#D32F2F]" style={{ height: `${len / 4}px` }}></div>
+                                <span className="text-2xl md:text-4xl filter drop-shadow-md">❤️</span>
+                                <div className="w-1 bg-[#D32F2F]" style={{ height: `${len / 8}px` }}></div>
                             </div>
                         ))}
                     </div>
                 ))}
+                <div className="hidden md:flex flex-col items-center">
+                    <div className="w-1 bg-[#D32F2F] h-6"></div>
+                    {[100, 220, 340].map((len, heartIdx) => (
+                        <div key={heartIdx} className="flex flex-col items-center">
+                            <span className="text-4xl filter drop-shadow-md">❤️</span>
+                            <div className="w-1 bg-[#D32F2F]" style={{ height: `${len / 4}px` }}></div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Calendar - Top Right */}
-            <div className="absolute top-10 right-10">
+            <div className="absolute top-4 right-4 md:top-10 md:right-10">
                 <Calendar />
             </div>
 
@@ -142,24 +151,24 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
             </motion.div>
 
             {/* Headline matching screenshot layout/color */}
-            <div className="mb-14 z-10">
-                <h1 className="text-4xl md:text-[58px] font-bold text-[#A52A2A] leading-[1.1] tracking-tight drop-shadow-sm">
+            <div className="mb-8 md:mb-14 z-10 px-4">
+                <h1 className="text-3xl md:text-[58px] font-bold text-[#A52A2A] leading-[1.1] tracking-tight drop-shadow-sm">
                     Сайн уу {partnerName ? `, ${partnerName}` : ''},
                     <br />
-                    <span className="text-5xl md:text-[68px]">Миний Валентин болох уу?</span>
+                    <span className="text-4xl md:text-[68px]">Миний Валентин болох уу?</span>
                 </h1>
                 {creatorName && (
-                    <p className="mt-4 text-2xl text-[#D32F2F] font-bold">хайрт {creatorName}-аас нь ❤️</p>
+                    <p className="mt-2 md:mt-4 text-xl md:text-2xl text-[#D32F2F] font-bold italic">хайрт {creatorName}-аас нь ❤️</p>
                 )}
             </div>
 
             {/* Buttons matching pill-shape and black offset shadow */}
-            <div className="flex flex-col md:flex-row gap-12 items-center justify-center z-20 w-full max-w-4xl px-4">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center justify-center z-20 w-full max-w-4xl px-8">
                 <motion.button
                     whileHover={{ scale: 1.05, translateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={onYes}
-                    className="w-full md:w-[360px] py-5 bg-[#F09393] text-black font-bold text-3xl rounded-full border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
+                    className="w-full md:w-[360px] py-4 md:py-5 bg-[#F09393] text-black font-bold text-2xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
                 >
                     Тийм ээ, мэдээж
                 </motion.button>
@@ -168,19 +177,19 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
                     whileHover={{ scale: 1.05, translateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={onNo}
-                    className="w-full md:w-[360px] py-5 bg-[#F09393] text-black font-bold text-3xl rounded-full border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
+                    className="w-full md:w-[360px] py-4 md:py-5 bg-[#F09393] text-black font-bold text-2xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
                 >
                     Үгүй ээ, баярлалаа
                 </motion.button>
             </div>
 
             {/* Paper Airplane - Bottom Left */}
-            <div className="absolute bottom-20 left-16">
+            <div className="absolute bottom-10 left-4 md:bottom-20 md:left-16">
                 <PaperAirplaneWithTrail />
             </div>
 
             {/* Chocolate Box - Bottom Right */}
-            <div className="absolute bottom-24 right-20">
+            <div className="absolute bottom-12 right-6 md:bottom-24 md:right-20">
                 <ChocolateBox />
             </div>
 

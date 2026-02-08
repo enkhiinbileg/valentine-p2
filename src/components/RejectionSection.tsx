@@ -11,22 +11,30 @@ export default function RejectionSection({ onRetry }: RejectionSectionProps) {
         <div className="min-h-screen flex flex-col items-center justify-center text-center p-6 relative overflow-hidden bg-[#FFC5DE] font-fredoka">
 
             {/* Hanging Broken Hearts Decorations */}
-            <div className="absolute top-0 left-12 flex gap-12 pointer-events-none p-4">
+            <div className="absolute top-0 left-4 md:left-12 flex gap-4 md:gap-12 pointer-events-none p-4 px-2">
                 {[
                     [120, 240],
-                    [80, 200],
-                    [160, 280]
+                    [80, 200]
                 ].map((lengths, colIdx) => (
                     <div key={colIdx} className="flex flex-col items-center">
                         <div className="w-1 bg-[#8B4513]/20 h-8"></div>
                         {lengths.map((len, idx) => (
                             <div key={idx} className="flex flex-col items-center">
-                                <span className="text-3xl filter grayscale opacity-30 drop-shadow-md">💔</span>
-                                <div className="w-1 bg-[#8B4513]/20" style={{ height: `${len / 4}px` }}></div>
+                                <span className="text-2xl md:text-3xl filter grayscale opacity-30 drop-shadow-md">💔</span>
+                                <div className="w-1 bg-[#8B4513]/20" style={{ height: `${len / 8}px` }}></div>
                             </div>
                         ))}
                     </div>
                 ))}
+                <div className="hidden md:flex flex-col items-center">
+                    <div className="w-1 bg-[#8B4513]/20 h-8"></div>
+                    {[160, 280].map((len, idx) => (
+                        <div key={idx} className="flex flex-col items-center">
+                            <span className="text-3xl filter grayscale opacity-30 drop-shadow-md">💔</span>
+                            <div className="w-1 bg-[#8B4513]/20" style={{ height: `${len / 4}px` }}></div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Main Character - Using the specified GIF */}
@@ -34,14 +42,14 @@ export default function RejectionSection({ onRetry }: RejectionSectionProps) {
                 initial={{ scale: 0.8, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="mb-12 z-10"
+                className="mb-8 md:mb-12 z-10"
             >
                 <Image
                     src="/sad-peach.gif"
                     alt="Sad Heart Character"
                     width={320}
                     height={320}
-                    className="drop-shadow-2xl rounded-2xl"
+                    className="drop-shadow-2xl rounded-2xl w-[240px] md:w-[320px]"
                     priority
                     unoptimized // For GIFs
                 />
@@ -52,9 +60,9 @@ export default function RejectionSection({ onRetry }: RejectionSectionProps) {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="mb-14 z-10"
+                className="mb-10 md:mb-14 z-10 px-4"
             >
-                <h2 className="text-4xl md:text-[52px] font-bold text-[#6B0D0D] leading-tight tracking-tight">
+                <h2 className="text-3xl md:text-[52px] font-bold text-[#6B0D0D] leading-tight tracking-tight">
                     Дахиад нэг оролдоорой :(
                 </h2>
             </motion.div>
@@ -64,7 +72,7 @@ export default function RejectionSection({ onRetry }: RejectionSectionProps) {
                 whileHover={{ scale: 1.05, translateY: -5 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onRetry}
-                className="z-20 w-full max-w-[340px] py-5 bg-[#F09393] text-black font-bold text-3xl rounded-full border-[4px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
+                className="z-20 w-full max-w-[280px] md:max-w-[340px] py-4 md:py-5 bg-[#F09393] text-black font-bold text-2xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
             >
                 Дахин оролдох
             </motion.button>

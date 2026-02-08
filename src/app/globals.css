@@ -18,6 +18,23 @@ body {
   padding: 0;
 }
 
+/* Base scaling for mobile (1.5x smaller) */
+@media (max-width: 768px) {
+  body {
+    zoom: 0.6666;
+    /* Scales everything including px values */
+    -moz-transform: scale(0.6666);
+    /* Firefox fallback */
+    transform: scale(0.6666);
+    /* Other browsers fallback/alternative */
+    width: 150% !important;
+    /* Forces layout to 1.5x width to compensate zoom */
+    position: relative;
+    left: 0;
+    transform-origin: top left;
+  }
+}
+
 /* Paper texture effect */
 .paper-texture {
   position: relative;

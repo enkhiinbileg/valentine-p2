@@ -47,11 +47,11 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
     return (
         <div className="w-full min-h-screen py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture">
             {/* Heart Garland at top */}
-            <div className="absolute top-0 left-0 right-0 flex justify-center gap-2 mt-4 overflow-hidden">
-                {[...Array(15)].map((_, i) => (
+            <div className="absolute top-0 left-0 right-0 flex justify-center gap-1 md:gap-2 mt-4 overflow-hidden px-2">
+                {[...Array(12)].map((_, i) => (
                     <motion.span
                         key={i}
-                        className="text-2xl"
+                        className="text-xl md:text-2xl"
                         animate={{ y: [0, 5, 0] }}
                         transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
                     >
@@ -61,7 +61,7 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
             </div>
 
             <motion.h2
-                className="text-5xl md:text-6xl font-bold text-[#5D4037] mb-12 font-heading text-center"
+                className="text-4xl md:text-6xl font-bold text-[#5D4037] mb-8 md:mb-12 font-heading text-center px-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
             >
@@ -73,15 +73,15 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="relative group cursor-pointer shrink-0"
+                    className="relative group cursor-pointer shrink-0 z-10"
                     whileHover={{ rotate: [-1, 1, -1] }}
                 >
                     {/* Diagonal Stripe Border */}
-                    <div className="p-4 bg-white shadow-2xl rounded-sm overflow-hidden" style={{
+                    <div className="p-3 md:p-4 bg-white shadow-2xl rounded-sm overflow-hidden" style={{
                         backgroundImage: 'repeating-linear-gradient(45deg, #FFB6C1, #FFB6C1 20px, #FFFFFF 20px, #FFFFFF 40px)',
-                        padding: '12px'
+                        padding: '10px md:12px'
                     }}>
-                        <div className="bg-sky-400 w-72 h-80 md:w-80 md:h-[400px] relative flex items-center justify-center overflow-hidden">
+                        <div className="bg-sky-400 w-[280px] h-[350px] md:w-80 md:h-[400px] relative flex items-center justify-center overflow-hidden">
                             {photoUrl ? (
                                 <Image src={photoUrl} alt="Valentine Photo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" unoptimized />
                             ) : (
@@ -103,7 +103,7 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                     </div>
                     {/* Decorative Hearts around the frame */}
                     <motion.div
-                        className="absolute -top-6 -right-6 text-5xl"
+                        className="absolute -top-4 -right-4 md:-top-6 md:-right-6 text-4xl md:text-5xl"
                         animate={{ scale: [1, 1.2, 1], rotate: [0, 15, -15, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
                     >
@@ -112,9 +112,9 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                 </motion.div>
 
                 {/* Checklist Section - Reasons why I love you */}
-                <div className="flex flex-col gap-6 w-full lg:w-[450px]">
+                <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-[450px] px-2 md:px-0">
                     <motion.h3
-                        className="text-3xl font-bold text-[#5D4037] font-heading mb-4 text-center lg:text-left"
+                        className="text-2xl md:text-3xl font-bold text-[#5D4037] font-heading mb-2 md:mb-4 text-center lg:text-left"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                     >
@@ -126,12 +126,12 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className="flex items-center gap-4 bg-white/80 p-4 rounded-2xl shadow-sm border border-pink-100"
+                            className="flex items-center gap-3 md:gap-4 bg-white/80 p-3 md:p-4 rounded-2xl shadow-sm border border-pink-100"
                         >
-                            <div className="w-8 h-8 rounded-full bg-pink-400 flex items-center justify-center text-white font-bold shrink-0">
+                            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-pink-400 flex items-center justify-center text-white font-bold shrink-0 text-sm md:text-base">
                                 ✓
                             </div>
-                            <span className="text-[#5D4037] font-bold text-lg">{reason}</span>
+                            <span className="text-[#5D4037] font-bold text-base md:text-lg">{reason}</span>
                         </motion.div>
                     ))}
                 </div>

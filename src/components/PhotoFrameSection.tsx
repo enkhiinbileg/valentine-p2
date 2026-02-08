@@ -45,7 +45,7 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
     const displayReasons = reasons && reasons.length > 0 ? reasons : defaultReasons;
 
     return (
-        <div className="w-full min-h-screen py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture">
+        <div className="w-full min-h-screen py-12 md:py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture landscape:py-6">
             {/* Heart Garland at top */}
             <div className="absolute top-0 left-0 right-0 flex justify-center gap-1 md:gap-2 mt-4 overflow-hidden px-2">
                 {[...Array(12)].map((_, i) => (
@@ -61,11 +61,11 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
             </div>
 
             <motion.h2
-                className="text-4xl md:text-6xl font-bold text-[#5D4037] mb-8 md:mb-12 font-heading text-center px-4"
+                className="text-3xl md:text-6xl font-bold text-[#5D4037] mb-8 md:mb-12 font-heading text-center px-4 landscape:text-2xl landscape:mb-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
             >
-                Чи бид хоёр үүрд хамт
+                Бидний тухай надад таалагддаг зүйлс
             </motion.h2>
 
             <div className="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-6xl mx-auto w-full px-4">
@@ -77,11 +77,11 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                     whileHover={{ rotate: [-1, 1, -1] }}
                 >
                     {/* Diagonal Stripe Border */}
-                    <div className="p-3 md:p-4 bg-white shadow-2xl rounded-sm overflow-hidden" style={{
+                    <div className="p-3 md:p-4 bg-white shadow-2xl rounded-sm overflow-hidden landscape:scale-[0.8] landscape:origin-center" style={{
                         backgroundImage: 'repeating-linear-gradient(45deg, #FFB6C1, #FFB6C1 20px, #FFFFFF 20px, #FFFFFF 40px)',
                         padding: '10px md:12px'
                     }}>
-                        <div className="bg-sky-400 w-[280px] h-[350px] md:w-80 md:h-[400px] relative flex items-center justify-center overflow-hidden">
+                        <div className="bg-sky-400 w-[240px] h-[300px] md:w-80 md:h-[400px] relative flex items-center justify-center overflow-hidden">
                             {photoUrl ? (
                                 <Image src={photoUrl} alt="Valentine Photo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" unoptimized />
                             ) : (
@@ -114,7 +114,7 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                 {/* Checklist Section - Reasons why I love you */}
                 <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-[450px] px-2 md:px-0">
                     <motion.h3
-                        className="text-2xl md:text-3xl font-bold text-[#5D4037] font-heading mb-2 md:mb-4 text-center lg:text-left"
+                        className="text-xl md:text-3xl font-bold text-[#5D4037] font-heading mb-2 md:mb-4 text-center lg:text-left landscape:text-lg landscape:mb-1"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                     >
@@ -126,12 +126,12 @@ export default function PhotoFrameSection({ photoUrl, reasons }: PhotoFrameSecti
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className="flex items-center gap-3 md:gap-4 bg-white/80 p-3 md:p-4 rounded-2xl shadow-sm border border-pink-100"
+                            className="flex items-center gap-3 md:gap-4 bg-white/80 p-2 md:p-4 rounded-2xl shadow-sm border border-pink-100 landscape:p-1.5"
                         >
                             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-pink-400 flex items-center justify-center text-white font-bold shrink-0 text-sm md:text-base">
                                 ✓
                             </div>
-                            <span className="text-[#5D4037] font-bold text-base md:text-lg">{reason}</span>
+                            <span className="text-[#5D4037] font-bold text-sm md:text-lg landscape:text-xs">{reason}</span>
                         </motion.div>
                     ))}
                 </div>

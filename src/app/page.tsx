@@ -57,15 +57,15 @@ export default function CreatorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFC5DE] font-fredoka flex flex-col items-center justify-center p-6 text-[#5D4037]">
+    <div className="min-h-screen bg-[#FFC5DE] font-fredoka flex flex-col items-center justify-center p-4 md:p-6 text-[#5D4037] landscape:py-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-xl bg-white/80 backdrop-blur-md rounded-[30px] md:rounded-[40px] p-6 md:p-12 shadow-2xl border-4 border-white"
+        className="w-full max-w-2xl bg-white/80 backdrop-blur-md rounded-[30px] md:rounded-[40px] p-4 md:p-12 shadow-2xl border-4 border-white landscape:p-6 landscape:scale-95 landscape:origin-center"
       >
-        <div className="text-center mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-[#D32F2F] mb-2 font-heading">Валентин Карт Бүтээх</h1>
-          <p className="text-base md:text-lg opacity-80 px-2">Хайртай хүндээ зориулж өөрийн гэсэн вэб хуудас нээгээрэй ❤️</p>
+        <div className="text-center mb-4 md:mb-8 landscape:mb-2 text-center flex flex-col items-center">
+          <h1 className="text-xl md:text-4xl font-bold text-[#D32F2F] mb-1 md:mb-2 font-heading landscape:text-lg">Валентин Карт Бүтээх</h1>
+          <p className="text-sm md:text-lg opacity-80 px-2 landscape:text-xs">Хайртай хүндээ зориулж өөрийн гэсэн вэб хуудас нээгээрэй ❤️</p>
         </div>
 
         <AnimatePresence mode="wait">
@@ -132,9 +132,9 @@ export default function CreatorPage() {
                 </button>
                 <button
                   onClick={() => setStep(3)}
-                  className="flex-[2] py-3 md:py-4 bg-[#F4978E] text-white rounded-2xl text-xl md:text-2xl font-bold shadow-lg"
+                  className="flex-[2] py-3 md:py-4 bg-[#F4978E] text-white rounded-2xl text-xl md:text-2xl font-bold shadow-lg landscape:text-lg landscape:py-2"
                 >
-                  Тал бүр... ✨
+                  Дараах ✨
                 </button>
               </div>
             </motion.div>
@@ -263,9 +263,9 @@ export default function CreatorPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <label className="block text-lg font-bold text-pink-600">✨ Хайртай байх 3 шалтгаан:</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 landscape:gap-2">
+                  <div className="space-y-4 landscape:space-y-1">
+                    <label className="block text-base md:text-lg font-bold text-pink-600 landscape:text-xs">✨ Хайртай байх 3 шалтгаан:</label>
                     {formData.reasons.map((reason, i) => (
                       <input
                         key={`reason-${i}`}
@@ -276,14 +276,14 @@ export default function CreatorPage() {
                           newReasons[i] = e.target.value;
                           setFormData({ ...formData, reasons: newReasons });
                         }}
-                        className="w-full p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-sm"
+                        className="w-full p-2 md:p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-xs landscape:p-1.5"
                         placeholder={`Шалтгаан ${i + 1}`}
                       />
                     ))}
                   </div>
 
-                  <div className="space-y-4">
-                    <label className="block text-lg font-bold text-pink-600">📖 Бидний тухай 3 зүйл:</label>
+                  <div className="space-y-4 landscape:space-y-1">
+                    <label className="block text-base md:text-lg font-bold text-pink-600 landscape:text-xs">📖 Бидний тухай 3 зүйл:</label>
                     {formData.about_us.map((about, i) => (
                       <input
                         key={`about-${i}`}
@@ -294,7 +294,7 @@ export default function CreatorPage() {
                           newAbout[i] = e.target.value;
                           setFormData({ ...formData, about_us: newAbout });
                         }}
-                        className="w-full p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-sm"
+                        className="w-full p-2 md:p-3 rounded-xl border-2 border-pink-100 focus:border-pink-500 outline-none text-xs landscape:p-1.5"
                         placeholder={`Таалагддаг зүйл ${i + 1}`}
                       />
                     ))}

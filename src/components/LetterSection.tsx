@@ -59,7 +59,7 @@ export default function LetterSection({ content }: LetterSectionProps) {
     ];
 
     return (
-        <div className="w-full min-h-screen py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture">
+        <div className="w-full min-h-screen py-12 md:py-24 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture landscape:py-6">
             {/* Binder Holes Shadow - to simulate a notebook page */}
             <div className="absolute top-10 left-5 md:top-20 md:left-20 flex flex-col gap-4 md:gap-6 opacity-20">
                 {[...Array(10)].map((_, i) => (
@@ -67,7 +67,7 @@ export default function LetterSection({ content }: LetterSectionProps) {
                 ))}
             </div>
 
-            <div className="w-full max-w-4xl bg-white shadow-2xl rounded-sm relative overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+            <div className="w-full max-w-4xl bg-white shadow-2xl rounded-sm relative overflow-hidden flex flex-col md:flex-row min-h-[500px] md:min-h-[600px] landscape:min-h-[300px] landscape:scale-90">
                 {/* Red margin line */}
                 <div className="absolute top-0 left-8 md:left-12 h-full w-0.5 bg-red-400 opacity-50"></div>
 
@@ -95,7 +95,7 @@ export default function LetterSection({ content }: LetterSectionProps) {
                 {/* Right Side - Letter content */}
                 <div className="w-full md:w-2/3 p-6 md:p-12 relative z-10">
                     <motion.h2
-                        className="text-2xl md:text-4xl font-bold text-[#5D4037] mb-8 md:mb-12 font-heading"
+                        className="text-xl md:text-4xl font-bold text-[#5D4037] mb-4 md:mb-12 font-heading landscape:text-lg landscape:mb-2"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                     >
@@ -109,7 +109,7 @@ export default function LetterSection({ content }: LetterSectionProps) {
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5 + i * 0.2 }}
-                                className="text-[#5D4037] text-lg md:text-xl font-handwriting leading-relaxed"
+                                className="text-[#5D4037] text-base md:text-xl font-handwriting leading-relaxed landscape:text-sm landscape:mb-1"
                             >
                                 {line}
                             </motion.p>

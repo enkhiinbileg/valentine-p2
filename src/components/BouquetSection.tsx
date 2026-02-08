@@ -64,20 +64,20 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
             </div>
 
             {/* Title */}
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-12 font-heading tracking-tight drop-shadow-lg">
+            <h2 className="text-4xl md:text-7xl font-bold text-white mb-6 md:mb-12 font-heading tracking-tight drop-shadow-lg landscape:text-3xl landscape:mb-4">
                 Чамдаа зориулсан цэцэгс
             </h2>
 
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 max-w-7xl mx-auto w-full relative z-10">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-24 max-w-7xl mx-auto w-full relative z-10 landscape:flex-row landscape:gap-4">
                 {/* Left Message Bubbles */}
-                <div className="flex flex-col gap-24 w-full lg:w-80">
+                <div className="flex flex-col gap-6 lg:gap-24 w-full lg:w-80 landscape:gap-4">
                     <div className="relative">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            className="bg-white rounded-[40px] p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none"
+                            className="bg-white rounded-[40px] p-6 md:p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none landscape:p-4"
                         >
-                            <p className="text-[#212121] text-2xl font-bold text-center leading-tight">
+                            <p className="text-[#212121] text-xl md:text-2xl font-bold text-center leading-tight landscape:text-sm">
                                 Юу ч болсон би чамайг үргэлж хайрлах болно
                             </p>
                         </motion.div>
@@ -88,9 +88,9 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-white rounded-[40px] p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none"
+                            className="bg-white rounded-[40px] p-6 md:p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none landscape:p-4"
                         >
-                            <p className="text-[#212121] text-2xl font-bold text-center leading-tight">
+                            <p className="text-[#212121] text-xl md:text-2xl font-bold text-center leading-tight landscape:text-sm">
                                 Чи бол миний амьдралын хамгийн сайн хэсэг
                             </p>
                         </motion.div>
@@ -101,10 +101,10 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="relative"
+                    className="relative landscape:scale-75"
                 >
                     <ScallopedFrame>
-                        <div className="relative w-80 h-[340px]">
+                        <div className="relative w-64 h-[280px] md:w-80 md:h-[340px]">
                             <Image
                                 src="/bouquet.png"
                                 alt="Сарнайн баглаа"
@@ -124,9 +124,9 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                         <motion.div
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            className="bg-white rounded-[40px] p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none"
+                            className="bg-white rounded-[40px] p-6 md:p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none landscape:p-4"
                         >
-                            <p className="text-[#212121] text-2xl font-bold text-center leading-tight">
+                            <p className="text-[#212121] text-xl md:text-2xl font-bold text-center leading-tight landscape:text-sm">
                                 Чи үүрд миний цор ганц сонголт байх болно.
                             </p>
                         </motion.div>
@@ -160,9 +160,9 @@ export default function BouquetSection({ onNext }: BouquetSectionProps) {
                             initial={{ opacity: 0, x: 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-white rounded-[40px] p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none"
+                            className="bg-white rounded-[40px] p-6 md:p-8 shadow-[0_0_25px_rgba(255,105,180,0.6)] border-none landscape:p-4"
                         >
-                            <p className="text-[#212121] text-2xl font-bold text-center leading-tight">
+                            <p className="text-[#212121] text-xl md:text-2xl font-bold text-center leading-tight landscape:text-sm">
                                 Чамгүйгээр амьдралыг төсөөлж ч чадахгүй нь
                             </p>
                         </motion.div>

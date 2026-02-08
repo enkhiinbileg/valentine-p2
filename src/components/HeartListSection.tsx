@@ -16,10 +16,10 @@ export default function HeartListSection({ items }: HeartListSectionProps) {
     ];
 
     return (
-        <div className="w-full min-h-screen py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture">
+        <div className="w-full min-h-screen py-12 md:py-20 px-4 relative bg-[#FFC5D3] flex flex-col items-center justify-center paper-texture landscape:py-6">
             {/* Title */}
             <motion.h2
-                className="text-5xl md:text-6xl font-bold text-[#5D4037] mb-12 font-heading text-center px-4"
+                className="text-3xl md:text-6xl font-bold text-[#5D4037] mb-8 md:mb-12 font-heading text-center px-4 landscape:text-2xl landscape:mb-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
             >
@@ -27,7 +27,7 @@ export default function HeartListSection({ items }: HeartListSectionProps) {
             </motion.h2>
 
             {/* Notebook Paper with Spiral Binding */}
-            <div className="w-full max-w-2xl bg-white shadow-2xl relative rounded-sm group">
+            <div className="w-full max-w-2xl bg-white shadow-2xl relative rounded-sm group landscape:scale-[0.8] landscape:origin-center">
                 {/* Spiral Binding at the top */}
                 <div className="absolute -top-6 left-0 right-0 flex justify-center gap-4 px-10">
                     {[...Array(10)].map((_, i) => (
@@ -53,7 +53,7 @@ export default function HeartListSection({ items }: HeartListSectionProps) {
                                 className="flex items-start gap-4"
                             >
                                 <span className="text-3xl mt-1">❤️</span>
-                                <p className="text-[#5D4037] text-2xl font-handwriting leading-relaxed border-b border-blue-100 w-full pb-2">
+                                <p className="text-[#5D4037] text-lg md:text-2xl font-handwriting leading-relaxed border-b border-blue-100 w-full pb-2 landscape:text-base">
                                     {item}
                                 </p>
                             </motion.div>

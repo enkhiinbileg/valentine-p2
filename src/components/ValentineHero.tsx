@@ -18,7 +18,7 @@ function PandaCouple() {
                 alt="Панда хос"
                 width={400}
                 height={350}
-                className="drop-shadow-2xl w-[280px] md:w-[400px]"
+                className="drop-shadow-2xl w-[280px] md:w-[400px] landscape:max-h-[150px] landscape:w-auto"
                 priority
                 unoptimized
             />
@@ -35,7 +35,7 @@ function Calendar() {
                 alt="Календарь"
                 width={200}
                 height={200}
-                className="drop-shadow-lg w-[100px] md:w-[200px]"
+                className="drop-shadow-lg w-[100px] md:w-[200px] landscape:hide-mobile landscape:w-[80px]"
                 unoptimized
             />
         </div>
@@ -136,7 +136,7 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
             </div>
 
             {/* Calendar - Top Right */}
-            <div className="absolute top-4 right-4 md:top-10 md:right-10">
+            <div className="absolute top-4 right-4 md:top-10 md:right-10 landscape:top-2 landscape:right-2">
                 <Calendar />
             </div>
 
@@ -145,30 +145,30 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="mb-8 z-10"
+                className="mb-4 md:mb-8 z-10 landscape:mb-2"
             >
                 <PandaCouple />
             </motion.div>
 
             {/* Headline matching screenshot layout/color */}
-            <div className="mb-8 md:mb-14 z-10 px-4">
-                <h1 className="text-3xl md:text-[58px] font-bold text-[#A52A2A] leading-[1.1] tracking-tight drop-shadow-sm">
+            <div className="mb-6 md:mb-14 z-10 px-4 landscape:mb-2 text-center flex flex-col items-center">
+                <h1 className="text-2xl md:text-[58px] font-bold text-[#A52A2A] leading-[1.1] tracking-tight drop-shadow-sm landscape:text-xl">
                     Сайн уу {partnerName ? `, ${partnerName}` : ''},
                     <br />
-                    <span className="text-4xl md:text-[68px]">Миний Валентин болох уу?</span>
+                    <span className="text-3xl md:text-[68px] landscape:text-2xl">Миний Валентин болох уу?</span>
                 </h1>
                 {creatorName && (
-                    <p className="mt-2 md:mt-4 text-xl md:text-2xl text-[#D32F2F] font-bold italic">хайрт {creatorName}-аас нь ❤️</p>
+                    <p className="mt-1 md:mt-4 text-lg md:text-2xl text-[#D32F2F] font-bold italic landscape:mt-0 landscape:text-sm">хайрт {creatorName}-аас нь ❤️</p>
                 )}
             </div>
 
             {/* Buttons matching pill-shape and black offset shadow */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center justify-center z-20 w-full max-w-4xl px-8">
+            <div className="flex flex-col md:flex-row landscape:flex-row gap-4 md:gap-12 items-center justify-center z-20 w-full max-w-4xl px-8 landscape:gap-4">
                 <motion.button
                     whileHover={{ scale: 1.05, translateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={onYes}
-                    className="w-full md:w-[360px] py-4 md:py-5 bg-[#F09393] text-black font-bold text-2xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
+                    className="w-full md:w-[360px] py-3 md:py-5 bg-[#F09393] text-black font-bold text-xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all landscape:py-2 landscape:text-lg landscape:w-auto landscape:px-8"
                 >
                     Тийм ээ, мэдээж
                 </motion.button>
@@ -177,19 +177,19 @@ export default function ValentineHero({ onYes, onNo, partnerName, creatorName }:
                     whileHover={{ scale: 1.05, translateY: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={onNo}
-                    className="w-full md:w-[360px] py-4 md:py-5 bg-[#F09393] text-black font-bold text-2xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all"
+                    className="w-full md:w-[360px] py-3 md:py-5 bg-[#F09393] text-black font-bold text-xl md:text-3xl rounded-full border-[3px] md:border-[4px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] uppercase transition-all landscape:py-2 landscape:text-lg landscape:w-auto landscape:px-8"
                 >
                     Үгүй ээ, баярлалаа
                 </motion.button>
             </div>
 
             {/* Paper Airplane - Bottom Left */}
-            <div className="absolute bottom-10 left-4 md:bottom-20 md:left-16">
+            <div className="absolute bottom-10 left-4 md:bottom-20 md:left-16 landscape:bottom-2 landscape:scale-75">
                 <PaperAirplaneWithTrail />
             </div>
 
             {/* Chocolate Box - Bottom Right */}
-            <div className="absolute bottom-12 right-6 md:bottom-24 md:right-20">
+            <div className="absolute bottom-12 right-6 md:bottom-24 md:right-20 landscape:bottom-2 landscape:scale-75">
                 <ChocolateBox />
             </div>
 

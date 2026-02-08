@@ -140,11 +140,11 @@ export default function SuccessSection({ data }: SuccessSectionProps) {
                 {/* ... existing header logic ... */}
 
                 {/* Main Text Content */}
-                <div className="mb-12 md:mb-16 z-10 max-w-4xl px-6">
+                <div className="mb-8 md:mb-16 z-10 max-w-4xl px-6 landscape:mb-4">
                     <motion.h1
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="text-3xl md:text-6xl font-bold text-[#D32F2F] mb-4 md:mb-6 leading-tight"
+                        className="text-2xl md:text-6xl font-bold text-[#D32F2F] mb-3 md:mb-6 leading-tight landscape:text-xl"
                     >
                         Тийм гэж хэлсэнд чинь баярлалаа{data?.partner_name ? `, ${data.partner_name}` : ''}!
                     </motion.h1>
@@ -152,14 +152,14 @@ export default function SuccessSection({ data }: SuccessSectionProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-base md:text-2xl text-[#6D4C41] font-bold leading-relaxed"
+                        className="text-sm md:text-2xl text-[#6D4C41] font-bold leading-relaxed landscape:text-xs"
                     >
                         {data?.creator_name ? `${data.creator_name}-аас нь` : 'Чамдаа'} зориулж бэлдсэн энэ бүхэн миний хайрын өчүүхэн хэсэг нь шүү ✨
                     </motion.p>
                 </div>
 
-                {/* 3 Gift Card Buttons ... existing logic ... */}
-                <div className="flex flex-wrap gap-4 md:gap-8 justify-center items-center z-10 px-4">
+                {/* 3 Gift Card Buttons */}
+                <div className="flex flex-wrap gap-4 md:gap-8 justify-center items-center z-10 px-4 landscape:gap-3">
                     {[
                         { id: 'gift1', label: 'Бэлэг 1' },
                         { id: 'gift2', label: 'Бэлэг 2' },
@@ -173,7 +173,7 @@ export default function SuccessSection({ data }: SuccessSectionProps) {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => scrollToSection(gift.id)}
-                            className="w-[140px] h-[100px] md:w-[200px] md:h-[140px] bg-[#F4978E] border-[3px] md:border-[4px] border-[#8D0000] rounded-[20px] md:rounded-[30px] flex items-center justify-center text-white text-xl md:text-3xl font-bold underline decoration-white/40"
+                            className="w-[120px] h-[80px] md:w-[200px] md:h-[140px] bg-[#F4978E] border-[3px] md:border-[4px] border-[#8D0000] rounded-[20px] md:rounded-[30px] flex items-center justify-center text-white text-lg md:text-3xl font-bold underline decoration-white/40 landscape:w-[100px] landscape:h-[70px] landscape:text-sm"
                         >
                             {gift.label}
                         </motion.button>
@@ -182,12 +182,12 @@ export default function SuccessSection({ data }: SuccessSectionProps) {
 
                 {/* ... existing decorations ... */}
                 {/* Bottom Left Decoration */}
-                <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 opacity-80 pointer-events-none">
+                <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 opacity-80 pointer-events-none landscape:bottom-1 landscape:left-1 landscape:scale-50">
                     <HeartFirework />
                 </div>
 
                 {/* Bottom Right Decoration */}
-                <div className="absolute bottom-4 right-4 md:bottom-10 md:right-10 opacity-90 pointer-events-none">
+                <div className="absolute bottom-4 right-4 md:bottom-10 md:right-10 opacity-90 pointer-events-none landscape:bottom-1 landscape:right-1 landscape:scale-50">
                     <Mailbox />
                 </div>
             </div>

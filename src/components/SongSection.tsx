@@ -34,18 +34,18 @@ interface SongSectionProps {
 
 export default function SongSection({ songUrl }: SongSectionProps) {
     return (
-        <div className="w-full min-h-screen py-24 px-4 relative bg-[#FFD180] flex flex-col items-center justify-center overflow-hidden">
+        <div className="w-full min-h-screen py-12 md:py-24 px-4 relative bg-[#FFD180] flex flex-col items-center justify-center overflow-hidden landscape:py-6">
             {/* ... Floating Music Notes ... */}
 
             <motion.h2
-                className="text-5xl md:text-6xl font-bold text-[#5D4037] mb-16 font-heading text-center"
+                className="text-3xl md:text-6xl font-bold text-[#5D4037] mb-8 md:mb-16 font-heading text-center landscape:text-2xl landscape:mb-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
             >
                 Бидний дуртай дуу
             </motion.h2>
 
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-16 max-w-6xl mx-auto w-full">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 max-w-6xl mx-auto w-full landscape:flex-row landscape:gap-4">
                 {/* Vinyl Record Spinning */}
                 <motion.div
                     className="relative group"
@@ -54,7 +54,7 @@ export default function SongSection({ songUrl }: SongSectionProps) {
                 >
                     {/* Vinyl Outer */}
                     <motion.div
-                        className="w-64 h-64 bg-[#1a1a1a] rounded-full border-[10px] border-[#333] relative flex items-center justify-center"
+                        className="w-48 h-48 md:w-64 md:h-64 bg-[#1a1a1a] rounded-full border-[10px] border-[#333] relative flex items-center justify-center landscape:w-40 landscape:h-40"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                     >
@@ -70,13 +70,13 @@ export default function SongSection({ songUrl }: SongSectionProps) {
                     </motion.div>
 
                     {/* The Needle/Arm */}
-                    <div className="absolute -top-10 -right-10 w-4 h-40 bg-[#8B4513] origin-top rounded-full transform rotate-[30deg] z-20">
+                    <div className="absolute -top-10 -right-10 w-4 h-32 md:h-40 bg-[#8B4513] origin-top rounded-full transform rotate-[30deg] z-20 landscape:scale-75">
                         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-8 bg-[#333] rounded-sm"></div>
                     </div>
                 </motion.div>
 
                 {/* Laptop & Song Info */}
-                <div className="flex flex-col items-center gap-8">
+                <div className="flex flex-col items-center gap-4 md:gap-8 landscape:scale-75">
                     <RetroLaptop />
 
                     <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl flex flex-col items-center gap-4 w-80 border-2 border-pink-100">
@@ -140,7 +140,7 @@ export default function SongSection({ songUrl }: SongSectionProps) {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="relative"
+                    className="relative landscape:scale-75"
                 >
                     <div className="bg-white p-6 rounded-3xl shadow-2xl relative overflow-hidden">
                         {/* Heart Shape Border for "QR" */}
